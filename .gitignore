@@ -1,0 +1,18 @@
+# Garmin / signing secrets
+developer_key
+*.key
+*.pem
+*.p12
+*.keystore
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Local SDK / tooling
+*.log
+
+# Temporary build artifacts
+*.prg.tmp

@@ -1,0 +1,24 @@
+[ @file = "/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/TrainingReadiness.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/TrainingReadiness.mc"; @line = 3; @symbol_classdef = [TrainingReadiness,3,6,23]; ]
+class TrainingReadiness {
+    [ @file = "/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/TrainingReadiness.mc"; @line = 3; ]
+    <init> {
+    }
+    [ @file = "/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/TrainingReadiness.mc"; @line = 3; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/TrainingReadiness.mc"; @line = 5; @symbol_functiondef = [label,5,20,25]; @symbol_return<0> = [String,5,31,37]; ]
+    static
+    function label() as String {
+_Users_shrinikethdeevanapalli_Documents_Programming_Garmin_Watchface_source_TrainingReadiness_mc_5_38_7_4_start:
+[ "/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/TrainingReadiness.mc" 6 8 ]
+        %tmp.1 = "--  NOT CALCULATED";
+        ret %tmp.1;
+_Users_shrinikethdeevanapalli_Documents_Programming_Garmin_Watchface_source_TrainingReadiness_mc_5_38_7_4_stop:
+    }
+}
+[ @file = "/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/TrainingReadiness.mc"; @line = 1; ]
+<init> {
+}

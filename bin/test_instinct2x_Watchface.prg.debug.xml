@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<debugInfo>
+    <manifest filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/manifest.xml"/>
+    <pcToLineNum>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="1" lineNum="31" parent="globals" pc="268435460" symbol="getApp"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="1" lineNum="32" parent="globals" pc="268435470" symbol="getApp"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceBackground.mc" id="2" lineNum="6" parent="globals/Background" pc="268435486" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="3" lineNum="5" parent="globals/WatchfaceApp" pc="268435505" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="4" lineNum="7" parent="globals/WatchfaceView" pc="268435524" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/bin/gen/006-B4394-00/source/Rez.mcgen" id="5" lineNum="7" parent="globals/Rez" pc="268435543" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceBackground.mc" id="6" lineNum="8" parent="globals/Background" pc="268435567" symbol="initialize"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceBackground.mc" id="6" lineNum="9" parent="globals/Background" pc="268435571" symbol="initialize"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceBackground.mc" id="6" lineNum="13" parent="globals/Background" pc="268435592" symbol="initialize"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceBackground.mc" id="7" lineNum="16" parent="globals/Background" pc="268435613" symbol="draw"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceBackground.mc" id="7" lineNum="18" parent="globals/Background" pc="268435615" symbol="draw"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceBackground.mc" id="7" lineNum="19" parent="globals/Background" pc="268435657" symbol="draw"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="8" lineNum="12" parent="globals/WatchfaceApp" pc="268435670" symbol="onStart"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="9" lineNum="25" parent="globals/WatchfaceApp" pc="268435673" symbol="onSettingsChanged"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="9" lineNum="26" parent="globals/WatchfaceApp" pc="268435675" symbol="onSettingsChanged"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="10" lineNum="20" parent="globals/WatchfaceApp" pc="268435692" symbol="getInitialView"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="10" lineNum="21" parent="globals/WatchfaceApp" pc="268435694" symbol="getInitialView"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="11" lineNum="7" parent="globals/WatchfaceApp" pc="268435731" symbol="initialize"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="11" lineNum="8" parent="globals/WatchfaceApp" pc="268435733" symbol="initialize"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceApp.mc" id="12" lineNum="16" parent="globals/WatchfaceApp" pc="268435752" symbol="onStop"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="15" lineNum="14" parent="globals/WatchfaceView" pc="268435755" symbol="onLayout"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="15" lineNum="15" parent="globals/WatchfaceView" pc="268435757" symbol="onLayout"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="17" lineNum="9" parent="globals/WatchfaceView" pc="268435799" symbol="initialize"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="17" lineNum="10" parent="globals/WatchfaceView" pc="268435801" symbol="initialize"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="25" parent="globals/WatchfaceView" pc="268435820" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="27" parent="globals/WatchfaceView" pc="268435824" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="28" parent="globals/WatchfaceView" pc="268435831" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="29" parent="globals/WatchfaceView" pc="268435848" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="30" parent="globals/WatchfaceView" pc="268435858" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="31" parent="globals/WatchfaceView" pc="268435883" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="32" parent="globals/WatchfaceView" pc="268435894" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="35" parent="globals/WatchfaceView" pc="268435910" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="36" parent="globals/WatchfaceView" pc="268435933" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="37" parent="globals/WatchfaceView" pc="268435940" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="40" parent="globals/WatchfaceView" pc="268435961" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="43" parent="globals/WatchfaceView" pc="268436026" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="44" parent="globals/WatchfaceView" pc="268436054" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="45" parent="globals/WatchfaceView" pc="268436086" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/source/WatchfaceView.mc" id="19" lineNum="48" parent="globals/WatchfaceView" pc="268436100" symbol="onUpdate"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/bin/gen/006-B4394-00/source/Rez.mcgen" id="20" lineNum="13" parent="globals/Rez/Layouts" pc="268436125" symbol="WatchFace"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/bin/gen/006-B4394-00/source/Rez.mcgen" id="20" lineNum="14" parent="globals/Rez/Layouts" pc="268436137" symbol="WatchFace"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/bin/gen/006-B4394-00/source/Rez.mcgen" id="20" lineNum="16" parent="globals/Rez/Layouts" pc="268436165" symbol="WatchFace"/>
+        <entry filename="/Users/shrinikethdeevanapalli/Documents/Programming/Garmin/Watchface/bin/gen/006-B4394-00/source/Rez.mcgen" id="20" lineNum="18" parent="globals/Rez/Layouts" pc="268436318" symbol="WatchFace"/>
+    </pcToLineNum>
+    <symbolTable>
+        <entry id="8388639" module="true" symbol="Graphics"/>
+        <entry id="7" object="true" symbol="WatchfaceView"/>
+        <entry id="8388632" method="true" symbol="&lt;init&gt;"/>
+        <entry id="8389683" method="true" symbol="onSettingsChanged"/>
+        <entry field="true" id="16" symbol="ColorRed"/>
+        <entry field="true" id="19" symbol="MilitaryFormatTitle"/>
+        <entry field="true" id="8388611" module="true" symbol="Toybox"/>
+        <entry field="true" id="13" symbol="ColorBlue"/>
+        <entry field="true" id="10" symbol="AppName"/>
+        <entry id="5" module="true" symbol="globals/Rez/Strings"/>
+        <entry id="8388648" module="true" symbol="WatchUi"/>
+        <entry id="2" module="true" symbol="globals/Rez"/>
+        <entry id="8389124" method="true" symbol="onUpdate"/>
+        <entry id="8389375" method="true" object="true" symbol="WatchFace"/>
+        <entry field="true" id="8389065" symbol="locY"/>
+        <entry field="true" id="8389064" symbol="locX"/>
+        <entry id="8388771" module="true" object="true" symbol="Drawables"/>
+        <entry id="8389348" symbol="font"/>
+        <entry id="8389275" method="true" symbol="getApp"/>
+        <entry field="true" id="14" symbol="ColorDarkGray"/>
+        <entry id="4" module="true" symbol="globals/Rez/Layouts"/>
+        <entry id="8389122" method="true" symbol="onLayout"/>
+        <entry id="8389376" method="true" symbol="onEnterSleep"/>
+        <entry field="true" id="8389063" symbol="identifier"/>
+        <entry id="8389349" symbol="justification"/>
+        <entry field="true" id="17" symbol="ColorWhite"/>
+        <entry field="true" id="12" symbol="ColorBlack"/>
+        <entry id="3" module="true" symbol="globals/Rez/Drawables"/>
+        <entry id="8389377" method="true" symbol="onExitSleep"/>
+        <entry id="8388644" module="true" symbol="System"/>
+        <entry id="8388769" module="true" object="true" symbol="Rez"/>
+        <entry id="8388640" module="true" symbol="Lang"/>
+        <entry id="8389068" method="true" symbol="draw"/>
+        <entry field="true" id="9" symbol="LauncherIcon"/>
+        <entry id="8388610" symbol="statics"/>
+        <entry id="8389123" method="true" symbol="onShow"/>
+        <entry id="8389350" module="true" symbol="globals"/>
+        <entry field="true" id="11" symbol="BackgroundColorTitle"/>
+        <entry id="8388770" module="true" object="true" symbol="Strings"/>
+        <entry id="8390146" module="true" object="true" symbol="Background"/>
+        <entry id="8388702" method="true" symbol="initialize"/>
+        <entry id="8389279" method="true" symbol="onStart"/>
+        <entry field="true" id="15" symbol="ColorLightGray"/>
+        <entry id="8389280" method="true" symbol="getInitialView"/>
+        <entry id="8389281" method="true" symbol="onStop"/>
+        <entry field="true" id="8389347" symbol="color"/>
+        <entry field="true" id="18" symbol="ForegroundColorTitle"/>
+        <entry id="8" module="true" symbol="Layouts"/>
+        <entry id="6" object="true" symbol="WatchfaceApp"/>
+        <entry id="8389125" method="true" symbol="onHide"/>
+        <entry id="8388635" module="true" symbol="Application"/>
+    </symbolTable>
+    <localVars>
+        <entry endPc="268435611" name="dictionary" stackId="1" startPc="268435571"/>
+        <entry arg="true" endPc="268435669" name="dc" stackId="1" startPc="268435613"/>
+        <entry arg="true" endPc="268435798" name="dc" stackId="1" startPc="268435755"/>
+        <entry arg="true" endPc="268436124" name="dc" stackId="1" startPc="268435820"/>
+        <entry endPc="268436123" name="timeFormat" stackId="2" startPc="268435824"/>
+        <entry endPc="268436123" name="clockTime" stackId="3" startPc="268435824"/>
+        <entry endPc="268436123" name="hours" stackId="4" startPc="268435824"/>
+        <entry endPc="268436123" name="timeString" stackId="5" startPc="268435824"/>
+        <entry endPc="268436123" name="view" stackId="6" startPc="268435824"/>
+        <entry arg="true" endPc="268436344" name="dc" stackId="1" startPc="268436125"/>
+        <entry endPc="268436344" name="rez_cmp_local_custom_drawable_11939594661139614796" stackId="2" startPc="268436137"/>
+        <entry endPc="268436344" name="rez_cmp_local_text_TimeLabel" stackId="3" startPc="268436137"/>
+    </localVars>
+    <deviceInfo deviceVersion="a331630064dc3043c2508661e93a67218e43d8d4" partNumber="006-B4394-00"/>
+    <annotations>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="MilitaryFormatTitle"/>
+        <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="BackgroundColorTitle"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="ColorRed"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="ColorDarkGray"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="ColorWhite"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="ForegroundColorTitle"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="ColorLightGray"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="ColorBlue"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="ColorBlack"/>
+    </annotations>
+    <dataEntryOffsetMappings>
+        <dataEntry label="globals" offset="63" parentId="" symbolId="globals" type="module"/>
+        <dataEntry label="globals/Background" offset="142" parentId="globals" symbolId="Background" type="class"/>
+        <dataEntry label="globals/WatchfaceApp" offset="197" parentId="globals" symbolId="WatchfaceApp" type="class"/>
+        <dataEntry label="globals/WatchfaceView" offset="276" parentId="globals" symbolId="WatchfaceView" type="class"/>
+        <dataEntry label="globals/Rez" offset="371" parentId="globals" symbolId="Rez" type="module"/>
+        <dataEntry label="globals/Rez/Drawables" offset="426" parentId="Rez" symbolId="Drawables" type="module"/>
+        <dataEntry label="globals/Rez/Layouts" offset="465" parentId="Rez" symbolId="Layouts" type="module"/>
+        <dataEntry label="globals/Rez/Strings" offset="504" parentId="Rez" symbolId="Strings" type="module"/>
+    </dataEntryOffsetMappings>
+    <functions>
+        <functionEntry accessMode="public" endPc="268435485" name="getApp" startPc="268435460">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435504" name="&lt;init&gt;" parent="Background" startPc="268435486">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435523" name="&lt;init&gt;" parent="WatchfaceApp" startPc="268435505">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435542" name="&lt;init&gt;" parent="WatchfaceView" startPc="268435524">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435566" name="&lt;init&gt;" parent="Rez" startPc="268435543">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435612" name="initialize" parent="Background" startPc="268435567">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435669" name="draw" parent="Background" startPc="268435613">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435672" name="onStart" parent="WatchfaceApp" startPc="268435670">
+            <param id="state"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435691" name="onSettingsChanged" parent="WatchfaceApp" startPc="268435673">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435730" name="getInitialView" parent="WatchfaceApp" startPc="268435692">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435751" name="initialize" parent="WatchfaceApp" startPc="268435731">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435754" name="onStop" parent="WatchfaceApp" startPc="268435752">
+            <param id="state"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="onExitSleep" parent="WatchfaceView">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="onShow" parent="WatchfaceView">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435798" name="onLayout" parent="WatchfaceView" startPc="268435755">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="onEnterSleep" parent="WatchfaceView">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435819" name="initialize" parent="WatchfaceView" startPc="268435799">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="onHide" parent="WatchfaceView">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436124" name="onUpdate" parent="WatchfaceView" startPc="268435820">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Layouts">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436344" name="WatchFace" parent="Layouts" startPc="268436125">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+    </functions>
+</debugInfo>
