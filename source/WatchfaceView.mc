@@ -1,6 +1,6 @@
 import Toybox.Graphics;
-import Toybox.ActivityMonitor;
 import Toybox.Lang;
+import Toybox.ActivityMonitor;
 import Toybox.Math;
 import Toybox.Position;
 import Toybox.SensorHistory;
@@ -14,226 +14,977 @@ class WatchfaceView extends WatchUi.WatchFace {
 
     private const SCREEN_W = 176;
     private const SCREEN_H = 176;
-    private const HEADER_TOP = 4;
-    private const HEADER_BOTTOM = 17;
-    private const UPPER_TOP = 17;
-    private const UPPER_BOTTOM = 57;
-    private const TIME_TOP = 57;
-    private const TIME_BOTTOM = 87;
-    private const DATE_TOP = 87;
-    private const DATE_BOTTOM = 103;
-    private const SUN_TOP = 103;
-    private const SUN_BOTTOM = 117;
-    private const STATS_TOP = 117;
-    private const STATS_BOTTOM = 147;
-    private const READINESS_TOP = 147;
-    private const READINESS_BOTTOM = 172;
 
-    private var _steps as Number? = null;
-    private var _battery as Number? = null;
-    private var _bodyBattery as Number? = null;
-    private var _heartRate as Number? = null;
+    private var _steps = null;
+    private var _battery = null;
+    private var _bodyBattery = null;
+
     private var _sunrise as Time.Moment? = null;
     private var _sunset as Time.Moment? = null;
-    private var _lastDataMinute as Number = -1;
+
+    private var _latitude = null;
+    private var _longitude = null;
+
+    private var _lastDataMinute = -1;
     private var _worldMap as BitmapResource? = null;
+
 
     function initialize() {
         WatchFace.initialize();
-        _worldMap = WatchUi.loadResource($.Rez.Drawables.WorldMap) as BitmapResource;
+
+        _worldMap = WatchUi.loadResource(
+            $.Rez.Drawables.WorldMap
+        ) as BitmapResource;
     }
 
+
     function onUpdate(dc as Dc) as Void {
-        if ((dc.getWidth() != SCREEN_W) || (dc.getHeight() != SCREEN_H)) {
+
+        if ((dc.getWidth() != SCREEN_W) ||
+            (dc.getHeight() != SCREEN_H)) {
             return;
         }
 
-        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        dc.setColor(
+            Graphics.COLOR_BLACK,
+            Graphics.COLOR_BLACK
+        );
         dc.clear();
 
         var clockTime = System.getClockTime();
+
         var hour = clockTime.hour;
         var minute = clockTime.min;
-        var timeString = hour.format("%02d") + ":" + minute.format("%02d");
 
         if (_lastDataMinute != minute) {
             updateData();
             _lastDataMinute = minute;
         }
 
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        drawHeader(dc);
-        drawWorldMap(dc);
-        drawAnalogClock(dc, 143, (UPPER_TOP + UPPER_BOTTOM) / 2, hour, minute);
-        dc.drawText(SCREEN_W / 2, TIME_TOP + (TIME_BOTTOM - TIME_TOP - 23), Graphics.FONT_NUMBER_MEDIUM, timeString, Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(SCREEN_W / 2, DATE_TOP + (DATE_BOTTOM - DATE_TOP - 15), Graphics.FONT_SYSTEM_XTINY, dateString(), Graphics.TEXT_JUSTIFY_CENTER);
-        drawSunBar(dc);
+        dc.setColor(
+            Graphics.COLOR_WHITE,
+            Graphics.COLOR_BLACK
+        );
+
+        drawTop(dc, hour, minute);
+        drawTimeAndDate(dc);
+        drawSun(dc);
         drawStats(dc);
-        drawReadiness(dc);
+        drawBottomPanel(dc);
     }
 
+
+    // ============================================================
+    // DATA
+    // ============================================================
+
     private function updateData() as Void {
+
         _steps = null;
         _battery = null;
         _bodyBattery = null;
-        _heartRate = null;
+
         _sunrise = null;
         _sunset = null;
 
+        _latitude = null;
+        _longitude = null;
+
+
         var activity = ActivityMonitor.getInfo();
-        if ((activity has :steps) && (activity.steps != null)) {
+
+        if ((activity has :steps) &&
+            (activity.steps != null)) {
             _steps = activity.steps;
         }
 
+
         var systemStats = System.getSystemStats();
+
         if (systemStats.battery != null) {
-            _battery = (systemStats.battery + 0.5).toNumber();
+            _battery =
+                (systemStats.battery + 0.5).toNumber();
         }
 
-        if ((Toybox has :SensorHistory) && (SensorHistory has :getBodyBatteryHistory)) {
-            var iterator = SensorHistory.getBodyBatteryHistory({
-                :period => 1,
-                :order => SensorHistory.ORDER_NEWEST_FIRST
-            });
+
+        if ((Toybox has :SensorHistory) &&
+            (SensorHistory has :getBodyBatteryHistory)) {
+
+            var iterator =
+                SensorHistory.getBodyBatteryHistory({
+                    :period => 1,
+                    :order => SensorHistory.ORDER_NEWEST_FIRST
+                });
+
             var sample = iterator.next();
-            if ((sample != null) && (sample.data != null)) {
-                _bodyBattery = sample.data.toNumber();
+
+            if ((sample != null) &&
+                (sample.data != null)) {
+                _bodyBattery =
+                    sample.data.toNumber();
             }
         }
 
-        if ((Toybox has :SensorHistory) && (SensorHistory has :getHeartRateHistory)) {
-            var heartRateIterator = SensorHistory.getHeartRateHistory({
-                :period => 1,
-                :order => SensorHistory.ORDER_NEWEST_FIRST
-            });
-            var heartRateSample = heartRateIterator.next();
-            if ((heartRateSample != null) && (heartRateSample.data != null)) {
-                _heartRate = heartRateSample.data.toNumber();
-            }
-        }
 
         if (Toybox has :Position) {
+
             var positionInfo = Position.getInfo();
-            if ((positionInfo has :position) && (positionInfo.position != null)) {
+
+            if ((positionInfo has :position) &&
+                (positionInfo.position != null)) {
+
+                var location = positionInfo.position;
+
+                var degrees = location.toDegrees();
+
+                if (degrees != null) {
+                    _latitude = degrees[0];
+                    _longitude = degrees[1];
+                }
+
                 var today = Time.now();
-                _sunrise = Weather.getSunrise(positionInfo.position, today);
-                _sunset = Weather.getSunset(positionInfo.position, today);
+
+                _sunrise =
+                    Weather.getSunrise(
+                        location,
+                        today
+                    );
+
+                _sunset =
+                    Weather.getSunset(
+                        location,
+                        today
+                    );
             }
         }
     }
 
-    private function dateString() as String {
-        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-        var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-        return weekdays[info.day_of_week] + " " + info.day.format("%02d") + " " + months[(info.month as Number) - 1];
-    }
 
-    private function drawHeader(dc as Dc) as Void {
-        dc.drawText(19, HEADER_TOP, Graphics.FONT_SYSTEM_XTINY, "IST +5:30", Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawText(159, HEADER_TOP, Graphics.FONT_SYSTEM_XTINY, "GPS", Graphics.TEXT_JUSTIFY_RIGHT);
-        dc.drawLine(22, HEADER_BOTTOM - 1, SCREEN_W - 22, HEADER_BOTTOM - 1);
-    }
+    // ============================================================
+    // TOP
+    // ============================================================
 
-    private function drawWorldMap(dc as Dc) as Void {
+    private function drawTop(
+        dc as Dc,
+        hour as Number,
+        minute as Number
+    ) as Void {
+
+        dc.drawText(
+            12,
+            1,
+            Graphics.FONT_SYSTEM_XTINY,
+            "IST +5:30",
+            Graphics.TEXT_JUSTIFY_LEFT
+        );
+
+
+        drawMapFrame(dc);
+
+
         if (_worldMap != null) {
-            dc.drawBitmap(18, UPPER_TOP + 4, _worldMap);
+            dc.drawBitmap(
+                10,
+                6,
+                _worldMap
+            );
         }
+
+
         drawLocationMarker(dc);
+
+
+        drawAnalog(
+            dc,
+            153,
+            20,
+            hour,
+            minute
+        );
     }
 
-    private function drawLocationMarker(dc as Dc) as Void {
-        dc.fillCircle(75, 37, 2);
+
+    private function drawMapFrame(
+        dc as Dc
+    ) as Void {
+
+        var l = 8;
+        var r = 90;
+        var t = 5;
+        var b = 37;
+
+
+        dc.drawLine(l + 5, t, r - 5, t);
+        dc.drawLine(l + 5, b, r - 5, b);
+
+        dc.drawLine(l, t + 5, l, b - 5);
+        dc.drawLine(r, t + 5, r, b - 5);
+
+        dc.drawLine(l, t + 5, l + 5, t);
+        dc.drawLine(r - 5, t, r, t + 5);
+
+        dc.drawLine(l, b - 5, l + 5, b);
+        dc.drawLine(r - 5, b, r, b - 5);
     }
 
-    private function drawAnalogClock(dc as Dc, centerX as Number, centerY as Number, hour as Number, minute as Number) as Void {
-        dc.drawCircle(centerX, centerY, 18);
-        dc.drawCircle(centerX, centerY, 15);
-        for (var index = 0; index < 12; index++) {
-            var angle = index * 30;
-            var outerX = centerX + (Math.sin(angle) * 15).toNumber();
-            var outerY = centerY - (Math.cos(angle) * 15).toNumber();
-            var innerX = centerX + (Math.sin(angle) * 12).toNumber();
-            var innerY = centerY - (Math.cos(angle) * 12).toNumber();
-            dc.drawLine(innerX, innerY, outerX, outerY);
+
+    private function drawLocationMarker(
+        dc as Dc
+    ) as Void {
+
+        var x = 51;
+        var y = 25;
+
+
+        if ((_latitude != null) &&
+            (_longitude != null)) {
+
+            x =
+                14 +
+                (((_longitude + 180) * 72) / 360)
+                    .toNumber();
+
+            y =
+                11 +
+                (((90 - _latitude) * 30) / 150)
+                    .toNumber();
+
+
+            if (x < 15) {
+                x = 15;
+            }
+
+            if (x > 85) {
+                x = 85;
+            }
+
+            if (y < 12) {
+                y = 12;
+            }
+
+            if (y > 40) {
+                y = 40;
+            }
         }
-        drawHand(dc, centerX, centerY, ((hour % 12) * 30) + (minute / 2), 9);
-        drawHand(dc, centerX, centerY, minute * 6, 12);
-        dc.fillCircle(centerX, centerY, 2);
+
+
+        dc.drawLine(
+            x - 3,
+            y,
+            x + 3,
+            y
+        );
+
+        dc.drawLine(
+            x,
+            y - 3,
+            x,
+            y + 3
+        );
+
+        dc.fillCircle(
+            x,
+            y,
+            1
+        );
     }
 
-    private function drawHand(dc as Dc, centerX as Number, centerY as Number, angle as Number, length as Number) as Void {
-        var handX = centerX + (Math.sin(angle) * length).toNumber();
-        var handY = centerY - (Math.cos(angle) * length).toNumber();
-        dc.drawLine(centerX, centerY, handX, handY);
+
+
+
+    // ============================================================
+    // ANALOG
+    // ============================================================
+
+    private function drawAnalog(
+        dc as Dc,
+        cx as Number,
+        cy as Number,
+        hour as Number,
+        minute as Number
+    ) as Void {
+
+        var r = 14;
+
+
+        dc.drawCircle(
+            cx,
+            cy,
+            r
+        );
+
+        dc.drawCircle(
+            cx,
+            cy,
+            r - 2
+        );
+
+
+        for (var i = 0; i < 12; i++) {
+
+            var angle = i * 30;
+
+            var ox =
+                cx +
+                (Math.sin(angle) * 8).toNumber();
+
+            var oy =
+                cy -
+                (Math.cos(angle) * 8).toNumber();
+
+            var ix =
+                cx +
+                (Math.sin(angle) * 8).toNumber();
+
+            var iy =
+                cy -
+                (Math.cos(angle) * 8).toNumber();
+
+            dc.drawLine(
+                ix,
+                iy,
+                ox,
+                oy
+            );
+        }
+
+
+        dc.drawText(
+            cx,
+            cy - 11,
+            Graphics.FONT_SYSTEM_XTINY,
+            "12",
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+        dc.drawText(
+            cx + 9,
+            cy - 4,
+            Graphics.FONT_SYSTEM_XTINY,
+            "3",
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+        dc.drawText(
+            cx,
+            cy + 7,
+            Graphics.FONT_SYSTEM_XTINY,
+            "6",
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+        dc.drawText(
+            cx - 9,
+            cy - 4,
+            Graphics.FONT_SYSTEM_XTINY,
+            "9",
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+
+        drawHand(
+            dc,
+            cx,
+            cy,
+            ((hour % 12) * 30) +
+            (minute / 2),
+            6
+        );
+
+        drawHand(
+            dc,
+            cx,
+            cy,
+            minute * 6,
+            9
+        );
+
+        dc.fillCircle(
+            cx,
+            cy,
+            2
+        );
     }
 
-    private function drawSunBar(dc as Dc) as Void {
-        var sunriseText = _sunrise == null ? "--:--" : formatSunTime(_sunrise);
-        var sunsetText = _sunset == null ? "--:--" : formatSunTime(_sunset);
-        var sunriseInfo = _sunrise == null ? null : Gregorian.info(_sunrise, Time.FORMAT_SHORT);
-        var sunsetInfo = _sunset == null ? null : Gregorian.info(_sunset, Time.FORMAT_SHORT);
-        var textY = SUN_TOP + 1;
-        var barY = SUN_BOTTOM - (SUN_BOTTOM - SUN_TOP - 6);
-        dc.drawText(18, textY, Graphics.FONT_XTINY, sunriseText, Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawText(SCREEN_W - 18, textY, Graphics.FONT_XTINY, sunsetText, Graphics.TEXT_JUSTIFY_RIGHT);
 
-        var markerX = 88;
-        if ((sunriseInfo != null) && (sunsetInfo != null)) {
-            var sunriseMinutes = sunriseInfo.hour * 60 + sunriseInfo.min;
-            var sunsetMinutes = sunsetInfo.hour * 60 + sunsetInfo.min;
-            var currentTime = System.getClockTime();
-            var currentMinutes = currentTime.hour * 60 + currentTime.min;
-            if (sunsetMinutes > sunriseMinutes) {
-                if (currentMinutes <= sunriseMinutes) {
-                    markerX = 54;
-                } else if (currentMinutes >= sunsetMinutes) {
-                    markerX = 122;
+    private function drawHand(
+        dc as Dc,
+        cx as Number,
+        cy as Number,
+        angle as Number,
+        length as Number
+    ) as Void {
+
+        var x =
+            cx +
+            (Math.sin(angle) * length).toNumber();
+
+        var y =
+            cy -
+            (Math.cos(angle) * length).toNumber();
+
+        dc.drawLine(
+            cx,
+            cy,
+            x,
+            y
+        );
+    }
+
+
+    // ============================================================
+    // TIME + DATE
+    // ============================================================
+
+    private function drawTimeAndDate(
+        dc as Dc
+    ) as Void {
+
+        var clock = System.getClockTime();
+
+        var time =
+            clock.hour.format("%02d") +
+            ":" +
+            clock.min.format("%02d");
+
+
+        dc.drawText(
+            62,
+            44,
+            Graphics.FONT_LARGE,
+            time,
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+
+        var info =
+            Gregorian.info(
+                Time.now(),
+                Time.FORMAT_SHORT
+            );
+
+
+        var weekdays = [
+            "SUN",
+            "MON",
+            "TUE",
+            "WED",
+            "THU",
+            "FRI",
+            "SAT"
+        ];
+
+
+        var months = [
+            "JAN",
+            "FEB",
+            "MAR",
+            "APR",
+            "MAY",
+            "JUN",
+            "JUL",
+            "AUG",
+            "SEP",
+            "OCT",
+            "NOV",
+            "DEC"
+        ];
+
+
+        var l = 117;
+        var r = 171;
+        var t = 45;
+        var b = 75;
+
+
+        dc.drawLine(
+            l + 5,
+            t,
+            r - 5,
+            t
+        );
+
+        dc.drawLine(
+            l,
+            t + 5,
+            l,
+            b - 5
+        );
+
+        dc.drawLine(
+            r,
+            t + 5,
+            r,
+            b - 5
+        );
+
+        dc.drawLine(
+            l + 5,
+            b,
+            r - 5,
+            b
+        );
+
+
+        dc.drawLine(
+            l,
+            t + 5,
+            l + 5,
+            t
+        );
+
+        dc.drawLine(
+            r - 5,
+            t,
+            r,
+            t + 5
+        );
+
+        dc.drawLine(
+            l,
+            b - 5,
+            l + 5,
+            b
+        );
+
+        dc.drawLine(
+            r,
+            b - 5,
+            r - 5,
+            b
+        );
+
+
+        dc.drawText(
+            144,
+            47,
+            Graphics.FONT_SYSTEM_SMALL,
+            weekdays[info.day_of_week] +
+            " " +
+            info.day.format("%02d"),
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+
+        dc.drawText(
+            144,
+            61,
+            Graphics.FONT_SYSTEM_XTINY,
+            months[(info.month as Number) - 1] +
+            " " +
+            info.year.toString(),
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+    }
+
+
+    // ============================================================
+    // SUN
+    // ============================================================
+
+    private function drawSun(
+        dc as Dc
+    ) as Void {
+
+        var sunrise =
+            _sunrise == null
+            ? "--:--"
+            : formatSunTime(_sunrise);
+
+        var sunset =
+            _sunset == null
+            ? "--:--"
+            : formatSunTime(_sunset);
+
+
+        drawSunIcon(dc, 16, 82);
+        drawSunIcon(dc, 160, 82);
+
+
+        dc.drawText(
+            25,
+            77,
+            Graphics.FONT_SYSTEM_XTINY,
+            sunrise,
+            Graphics.TEXT_JUSTIFY_LEFT
+        );
+
+        dc.drawText(
+            151,
+            77,
+            Graphics.FONT_SYSTEM_XTINY,
+            sunset,
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+
+
+        var l = 51;
+        var r = 125;
+        var y = 85;
+
+
+        dc.drawLine(
+            l,
+            y,
+            r,
+            y
+        );
+
+
+        for (var i = 0; i <= 10; i++) {
+
+            var x =
+                l +
+                ((r - l) * i / 10);
+
+            dc.drawLine(
+                x,
+                y - 2,
+                x,
+                y + 2
+            );
+        }
+
+
+        var marker = 88;
+
+
+        var rise =
+            _sunrise == null
+            ? null
+            : Gregorian.info(
+                _sunrise,
+                Time.FORMAT_SHORT
+            );
+
+        var set =
+            _sunset == null
+            ? null
+            : Gregorian.info(
+                _sunset,
+                Time.FORMAT_SHORT
+            );
+
+
+        if ((rise != null) &&
+            (set != null)) {
+
+            var riseMin =
+                rise.hour * 60 +
+                rise.min;
+
+            var setMin =
+                set.hour * 60 +
+                set.min;
+
+            var now =
+                System.getClockTime();
+
+            var nowMin =
+                now.hour * 60 +
+                now.min;
+
+
+            if (setMin > riseMin) {
+
+                if (nowMin <= riseMin) {
+
+                    marker = l;
+
+                } else if (nowMin >= setMin) {
+
+                    marker = r;
+
                 } else {
-                    markerX = 54 + ((currentMinutes - sunriseMinutes) * 68 / (sunsetMinutes - sunriseMinutes));
+
+                    marker =
+                        l +
+                        (
+                            (nowMin - riseMin) *
+                            (r - l) /
+                            (setMin - riseMin)
+                        );
                 }
             }
         }
-        dc.drawLine(54, barY + 2, 122, barY + 2);
-        dc.drawLine(54, barY, 54, barY + 4);
-        dc.drawLine(122, barY, 122, barY + 4);
-        dc.fillCircle(markerX, barY + 2, 2);
+
+
+        dc.fillCircle(
+            marker,
+            y,
+            2
+        );
     }
 
-    private function formatSunTime(moment as Time.Moment) as String {
-        var info = Gregorian.info(moment, Time.FORMAT_SHORT);
-        return info.hour.format("%02d") + ":" + info.min.format("%02d");
+
+    private function drawSunIcon(
+        dc as Dc,
+        x as Number,
+        y as Number
+    ) as Void {
+
+        dc.drawLine(
+            x - 5,
+            y + 3,
+            x + 5,
+            y + 3
+        );
+
+        dc.drawLine(
+            x - 3,
+            y,
+            x + 3,
+            y
+        );
+
+        dc.drawLine(
+            x,
+            y - 4,
+            x,
+            y - 1
+        );
+
+        dc.drawLine(
+            x - 4,
+            y - 2,
+            x - 2,
+            y
+        );
+
+        dc.drawLine(
+            x + 4,
+            y - 2,
+            x + 2,
+            y
+        );
     }
 
-    private function drawStats(dc as Dc) as Void {
-        var labelY = STATS_TOP + 3;
-        var valueY = STATS_BOTTOM - 15;
-        var bodyValue = _bodyBattery == null ? "--" : compactNumber(_bodyBattery);
-        var stepsValue = _steps == null ? "--" : compactNumber(_steps);
-        var batteryValue = _battery == null ? "--" : compactNumber(_battery) + "%";
 
-        dc.drawText(29, labelY, Graphics.FONT_SYSTEM_XTINY, "BODY", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(88, labelY, Graphics.FONT_SYSTEM_XTINY, "STEPS", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(147, labelY, Graphics.FONT_SYSTEM_XTINY, "BAT", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(29, valueY, Graphics.FONT_SYSTEM_SMALL, bodyValue, Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(88, valueY, Graphics.FONT_SYSTEM_SMALL, stepsValue, Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(147, valueY, Graphics.FONT_SYSTEM_SMALL, batteryValue, Graphics.TEXT_JUSTIFY_CENTER);
+    private function formatSunTime(
+        moment as Time.Moment
+    ) as String {
+
+        var info =
+            Gregorian.info(
+                moment,
+                Time.FORMAT_SHORT
+            );
+
+        return info.hour.format("%02d") +
+            ":" +
+            info.min.format("%02d");
     }
 
-    private function compactNumber(value as Number?) as String {
+
+    // ============================================================
+    // STATS
+    // ============================================================
+
+    private function drawStats(
+        dc as Dc
+    ) as Void {
+
+        var l = 8;
+        var r = 168;
+        var t = 98;
+        var b = 137;
+
+
+        dc.drawLine(l, t, r, t);
+        dc.drawLine(l, b, r, b);
+
+
+        dc.drawLine(
+            61,
+            t,
+            61,
+            b
+        );
+
+        dc.drawLine(
+            115,
+            t,
+            115,
+            b
+        );
+
+
+        dc.drawLine(
+            l,
+            t,
+            l + 4,
+            t + 4
+        );
+
+        dc.drawLine(
+            r,
+            t,
+            r - 4,
+            t + 4
+        );
+
+
+        dc.drawText(
+            34,
+            101,
+            Graphics.FONT_SYSTEM_XTINY,
+            "BODY",
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+        dc.drawText(
+            88,
+            101,
+            Graphics.FONT_SYSTEM_XTINY,
+            "STEPS",
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+        dc.drawText(
+            141,
+            101,
+            Graphics.FONT_SYSTEM_XTINY,
+            "BAT",
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+
+        var body =
+            _bodyBattery == null
+            ? "--"
+            : compactNumber(_bodyBattery);
+
+        var steps =
+            _steps == null
+            ? "--"
+            : compactNumber(_steps);
+
+        var battery =
+            _battery == null
+            ? "--"
+            : compactNumber(_battery) + "%";
+
+
+        dc.drawText(
+            34,
+            114,
+            Graphics.FONT_SYSTEM_SMALL,
+            body,
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+        dc.drawText(
+            88,
+            114,
+            Graphics.FONT_SYSTEM_SMALL,
+            steps,
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+        dc.drawText(
+            141,
+            114,
+            Graphics.FONT_SYSTEM_SMALL,
+            battery,
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+
+    }
+
+
+    // ============================================================
+    // BOTTOM PANEL
+    // ============================================================
+
+    private function drawBottomPanel(
+        dc as Dc
+    ) as Void {
+
+        var l = 18;
+        var r = 158;
+        var t = 145;
+        var b = 173;
+
+
+        // Main chamfered instrument panel.
+
+        dc.drawLine(
+            l + 5,
+            t,
+            r - 5,
+            t
+        );
+
+        dc.drawLine(
+            l,
+            t + 5,
+            l,
+            b - 5
+        );
+
+        dc.drawLine(
+            r,
+            t + 5,
+            r,
+            b - 5
+        );
+
+        dc.drawLine(
+            l + 5,
+            b,
+            r - 5,
+            b
+        );
+
+
+        // Chamfered corners.
+
+        dc.drawLine(
+            l,
+            t + 5,
+            l + 5,
+            t
+        );
+
+        dc.drawLine(
+            r - 5,
+            t,
+            r,
+            t + 5
+        );
+
+        dc.drawLine(
+            l,
+            b - 5,
+            l + 5,
+            b
+        );
+
+        dc.drawLine(
+            r,
+            b - 5,
+            r - 5,
+            b
+        );
+    }
+
+    // ============================================================
+    // HELPERS
+    // ============================================================
+
+    private function compactNumber(
+        value
+    ) as String {
+
         if (value == null) {
             return "--";
         }
+
         if (value > 9999) {
             return (value / 1000).format("%.1f") + "K";
         }
-        return value.toString();
-    }
 
-    private function drawReadiness(dc as Dc) as Void {
-        dc.drawLine(16, READINESS_TOP, SCREEN_W - 16, READINESS_TOP);
-        var heartRateText = _heartRate == null ? "-- BPM" : _heartRate.toString() + " BPM";
-        dc.drawText(SCREEN_W / 2, READINESS_BOTTOM - 24, Graphics.FONT_SYSTEM_XTINY, "HR", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(SCREEN_W / 2, READINESS_BOTTOM - 16, Graphics.FONT_SYSTEM_SMALL, heartRateText, Graphics.TEXT_JUSTIFY_CENTER);
+        return value.toString();
     }
 }
