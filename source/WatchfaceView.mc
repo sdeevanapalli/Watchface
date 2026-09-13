@@ -196,8 +196,8 @@ class WatchfaceView extends WatchUi.WatchFace {
 
         drawAnalog(
             dc,
-            153,
-            20,
+            154,
+            18,
             hour,
             minute
         );
@@ -449,7 +449,7 @@ class WatchfaceView extends WatchUi.WatchFace {
 
 
         dc.drawText(
-            62,
+            63,
             44,
             Graphics.FONT_LARGE,
             time,
@@ -491,74 +491,12 @@ class WatchfaceView extends WatchUi.WatchFace {
         ];
 
 
-        var l = 117;
-        var r = 171;
-        var t = 45;
-        var b = 75;
-
-
-        dc.drawLine(
-            l + 5,
-            t,
-            r - 5,
-            t
-        );
-
-        dc.drawLine(
-            l,
-            t + 5,
-            l,
-            b - 5
-        );
-
-        dc.drawLine(
-            r,
-            t + 5,
-            r,
-            b - 5
-        );
-
-        dc.drawLine(
-            l + 5,
-            b,
-            r - 5,
-            b
-        );
-
-
-        dc.drawLine(
-            l,
-            t + 5,
-            l + 5,
-            t
-        );
-
-        dc.drawLine(
-            r - 5,
-            t,
-            r,
-            t + 5
-        );
-
-        dc.drawLine(
-            l,
-            b - 5,
-            l + 5,
-            b
-        );
-
-        dc.drawLine(
-            r,
-            b - 5,
-            r - 5,
-            b
-        );
-
+        // Compact date field beside the main time.
 
         dc.drawText(
-            144,
+            139,
             47,
-            Graphics.FONT_SYSTEM_SMALL,
+            Graphics.FONT_SYSTEM_XTINY,
             weekdays[info.day_of_week] +
             " " +
             info.day.format("%02d"),
@@ -567,12 +505,12 @@ class WatchfaceView extends WatchUi.WatchFace {
 
 
         dc.drawText(
-            144,
-            61,
+            139,
+            58,
             Graphics.FONT_SYSTEM_XTINY,
             months[(info.month as Number) - 1] +
             " " +
-            info.year.toString(),
+            (info.year % 100).toString(),
             Graphics.TEXT_JUSTIFY_CENTER
         );
     }
